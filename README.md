@@ -9,6 +9,7 @@
 ## ③DEMO
 
 デプロイしている場合はURLを記入（任意）
+https://yo0920.github.io/kadai02_janken_rich/
 
 ## ④工夫した点・こだわった点
 
