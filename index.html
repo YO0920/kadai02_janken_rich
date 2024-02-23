@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <script src="js/jquery-2.1.3.min.js"></script>
+    <link rel="stylesheet" href="css/sample.css">
+    <title>じゃんけん</title>
+</head>
+
+<body>
+
+    <header>
+        <h1><img src="img/head-image.png"></h1>
+    </header>
+
+    <main>
+        <p class="text">試合数：
+            <span id="gameCount">0</span>
+        </p>
+        <ul>
+            <li id="rock"><img src="img/rock.png" width="200px"></li>
+            <li id="scissors"><img src="img/scissors.png" width="200px"></li>
+            <li id="paper"><img src="img/paper.png" width="200px"></li>
+        </ul>
+
+        <div class="com">コンピュータの出した手は？ <br><span id="pc_hands"><img src="img/hatena3.png" width="200px"></span></div>
+        <div id="result"></div>
+
+        <div id="resultTable">
+            <dl>
+                <dt class="text">勝ち数</dt>
+                <dt class="text">負け数</dt>
+                <!-- <dt class="text">勝率</dt> -->
+            </dl>
+            <dl>
+                <dd id="winCount">0</dd>
+                <dd id="loseCount">0</dd>
+                <!-- <dd id="winRate">0</dd> -->
+            </dl>
+            </p>
+
+            <div id="reset"></div>
+
+            <footer></footer>
+            <script>
+                //自分がグーを出した場合
+                $("#rock").on("click", function () {
+                    //1.乱数(1~3)
+                    const r = Math.ceil(Math.random() * 3);
+                    //2.if分岐処理
+                    let view = "";  //これどういう意味？
+                    if (r == 1) {
+                        view = '<img src="img/rock.png" width="200px">'; //グー
+                        $("#result").html('<img src="img/drow.png" alt="あいこ" width=400px>')//あいこ画像を追加, ★リッチバージョンで追加
+                    }
+                    if (r == 2) {
+                        view = '<img src="img/scissors.png" width="200px">'; //チョキ
+                        $("#result").html('<img src="img/win.png" alt="勝ち" width=400px>'); //勝った画像を追加, ★リッチバージョンで追加
+                        //勝った数を1増やす, ★リッチバージョンで追加
+                        let currentWinCount = $("#winCount").text() //現在のカウントを見に行く、()の中がなにもないと見に行くという意味！
+                        $("#winCount").text(parseInt(currentWinCount) + 1) //表示は文字列と数字の2パターンある。数字として認識してもらうためにはParseIntを使用する！
+                    }
+                    if (r == 3) {
+                        view = '<img src="img/paper.png" width="200px">'; //パー
+                        $("#result").html('<img src="img/lose.png" alt="負け" width=400px>')//負け画像を追加, ★リッチバージョンで追加
+                        //負けた数を1増やす, ★リッチバージョンで追加
+                        let currentLoseCount = $("#loseCount").text() //現在のカウントを見に行く、()の中がなにもないと見に行くという意味！
+                        $("#loseCount").text(parseInt(currentLoseCount) + 1) //表示は文字列と数字の2パターンある。数字として認識してもらうためにはParseIntを使用する！
+                    }
+
+                    //3.表示処理
+                    $("#pc_hands").html(view);
+
+                    //4.試合数を一ずつ増やす
+                    let currentCount = $("#gameCount").text() //現在のカウントを見に行く、()の中がなにもないと見に行くという意味！
+                    $("#gameCount").text(parseInt(currentCount) + 1) //表示は文字列と数字の2パターンある。数字として認識してもらうためにはParseIntを使用する！
+
+                })
+
+                //自分がチョキを出した場合
+                $("#scissors").on("click", function () {
+
+                    //1.乱数(1~3)
+                    const r = Math.ceil(Math.random() * 3);
+
+                    //2.if分岐処理
+                    let view = "";
+                    if (r == 1) {
+                        view = '<img src="img/rock.png" width="200px">'; //グー
+                        $("#result").html('<img src="img/lose.png" alt="負け" width=400px>')//負け画像を追加, ★リッチバージョンで追加
+                        //負けた数を1増やす, ★リッチバージョンで追加
+                        let currentLoseCount = $("#loseCount").text() //現在のカウントを見に行く、()の中がなにもないと見に行くという意味！
+                        $("#loseCount").text(parseInt(currentLoseCount) + 1) //表示は文字列と数字の2パターンある。数字として認識してもらうためにはParseIntを使用する！
+                    }
+                    if (r == 2) {
+                        view = '<img src="img/scissors.png" width="200px">'; //チョキ
+                        $("#result").html('<img src="img/drow.png" alt="あいこ" width=400px>')//あいこ画像を追加, ★リッチバージョンで追加
+                    }
+                    if (r == 3) {
+                        view = '<img src="img/paper.png" width="200px">'; //パー
+                        $("#result").html('<img src="img/win.png" alt="勝ち" width=400px>'); //勝った画像を追加, ★リッチバージョンで追加
+
+                        //勝った数を1増やす, ★リッチバージョンで追加
+                        let currentWinCount = $("#winCount").text() //現在のカウントを見に行く、()の中がなにもないと見に行くという意味！
+                        $("#winCount").text(parseInt(currentWinCount) + 1) //表示は文字列と数字の2パターンある。数字として認識してもらうためにはParseIntを使用する！
+                    }
+
+                    //3.表示処理
+                    $("#pc_hands").html(view);
+
+                    //4.試合数を一ずつ増やす
+                    let currentCount = $("#gameCount").text() //現在のカウントを見に行く、()の中がなにもないと見に行くという意味！
+                    $("#gameCount").text(parseInt(currentCount) + 1) //表示は文字列と数字の2パターンある。数字として認識してもらうためにはParseIntを使用する！
+                })
+
+                //パーの場合
+                $("#paper").on("click", function () {
+                    //1.乱数(1~3)
+                    const r = Math.ceil(Math.random() * 3);
+
+                    //2.if分岐処理
+                    let result = "";
+                    if (r == 1) {
+                        view = '<img src="img/rock.png" width="200px">'; //グー
+                        $("#result").html('<img src="img/win.png" alt="勝ち" width=400px>'); //勝った画像を追加, ★リッチバージョンで追加
+                        //勝った数を1増やす, ★リッチバージョンで追加
+                        let currentWinCount = $("#winCount").text() //現在のカウントを見に行く、()の中がなにもないと見に行くという意味！
+                        $("#winCount").text(parseInt(currentWinCount) + 1) //表示は文字列と数字の2パターンある。数字として認識してもらうためにはParseIntを使用する！
+                    }
+                    if (r == 2) {
+                        view = '<img src="img/scissors.png" width="200px">'; //チョキ
+                        $("#result").html('<img src="img/lose.png" alt="負け" width=400px>')//負け画像を追加, ★リッチバージョンで追加
+                        //負けた数を1増やす, ★リッチバージョンで追加
+                        let currentLoseCount = $("#loseCount").text() //現在のカウントを見に行く、()の中がなにもないと見に行くという意味！
+                        $("#loseCount").text(parseInt(currentLoseCount) + 1) //表示は文字列と数字の2パターンある。数字として認識してもらうためにはParseIntを使用する！
+                    }
+                    if (r == 3) {
+                        view = '<img src="img/paper.png" width="200px">'; //パー
+                        $("#result").html('<img src="img/drow.png" alt="あいこ" width=400px>')//あいこ画像を追加, ★リッチバージョンで追加
+                    }
+
+                    //3.表示処理
+                    $("#pc_hands").html(view);
+
+                    //4.試合数を一ずつ増やす, ★リッチバージョンで追加
+                    let currentCount = $("#gameCount").text() //現在のカウントを見に行く、()の中がなにもないと見に行くという意味！
+                    $("#gameCount").text(parseInt(currentCount) + 1) //表示は文字列と数字の2パターンある。数字として認識してもらうためにはParseIntを使用する！
+
+                    //勝率計算
+                    $("#winRate").text(parseInt(currentWinCount)/(currentCount)*100)
+                })
+
+                //リセットボタン
+                $(document).ready(function () {
+                    $('#reset').append('<input type="button" id="#reset" value="Reset" class="btn">');
+                    $('#reset').click(function () {
+                        location.reload();
+                    });
+                });
+
+
+
+            </script>
+</body>
+
+</html>
